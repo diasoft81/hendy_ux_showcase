@@ -89,6 +89,17 @@ Located in `/vanilla_js/`, includes:
 - Report #1: Count of posts containing `"rerum"` in `body`.
 - Report #2: Posts count by User ID in a responsive table.
 
+#### 🖼️ Screenshots
+
+##### 🔍 Index Page
+![Index Screenshot](docs/images/index.png)
+
+##### 🔍 Posts Page
+![Posts Screenshot](docs/images/posts.png)
+
+##### 📊 Reports Page
+![Reports Screenshot](docs/images/reports.png)
+
 #### 🎨 Tech Stack
 
 - **HTML5 + CSS3**
