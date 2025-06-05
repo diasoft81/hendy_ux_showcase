@@ -85,6 +85,11 @@ function renderPosts(postsSubset) {
     }
   });
 
+  document.getElementById("close-comments").addEventListener("click", () => {
+    commentPanel.style.display = "none";
+  });
+
+
   render(postsSubset);
 }
 
