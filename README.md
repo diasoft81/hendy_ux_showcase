@@ -5,7 +5,7 @@
 ![Focus: UX](https://img.shields.io/badge/Focus-User%20Experience-orange.svg)
 ![Owner: diasoft81](https://img.shields.io/badge/GitHub-diasoft81-lightgrey.svg)
 
-A personal frontend engineering showcase featuring multiple implementations (Vanilla JS, React, and Blazor WASM) of clean, user-focused UI/UX for interacting with public RESTful APIs.
+A personal frontend engineering showcase featuring multiple implementations (Vanilla JS, React, and Blazor, Angular, PHP, ASP.NET) of clean, user-focused UI/UX for interacting with public RESTful APIs.
 
 ---
 
@@ -110,7 +110,6 @@ Located in `/vanilla_js/`, includes:
 
 ```bash
 git clone https://github.com/diasoft81/hendy_ux_showcase.git
-cd hendy_ux_showcase/vanilla_js
 ```
 
 2. **Open with VS Code or your favorite editor**
