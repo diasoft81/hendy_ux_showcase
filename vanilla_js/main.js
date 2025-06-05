@@ -1,50 +1,80 @@
 const isPostsPage = location.pathname.includes("posts.html");
 const isReportsPage = location.pathname.includes("reports.html");
 const API_URL = "https://jsonplaceholder.typicode.com/posts";
+let allPosts = [];
 
 fetch(API_URL)
   .then(res => res.json())
   .then(data => {
-    if (isPostsPage) renderPosts(data);
-    else if (isReportsPage) renderReports(data);
+    allPosts = data;
+    if (isPostsPage) renderPosts(allPosts.slice(0, 10));
+    else if (isReportsPage) renderReports(allPosts);
 });
 
-function renderPosts(posts) {
+function renderPosts(postsSubset) {
   const searchInput = document.getElementById("search");
   const tableBody = document.getElementById("posts-table");
+  const loadMoreBtn = document.getElementById("load-more");
+  const commentPanel = document.getElementById("comment-panel");
+  const commentBody = commentPanel.querySelector(".body");
+  let currentIndex = postsSubset.length;
 
-  function render(filteredPosts) {
-    tableBody.innerHTML = "";
-    filteredPosts.forEach(post => {
+  function render(posts) {
+    posts.forEach(post => {
       const tr = document.createElement("tr");
       if (post.body.includes("rerum")) tr.classList.add("rerum-highlight");
-      tr.setAttribute("data-bs-toggle", "tooltip");
-      tr.setAttribute("data-bs-html", "true");
-      tr.setAttribute("data-bs-placement", "top");
-      tr.setAttribute("title", "Loading comments...");
 
-      fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
-        .then(res => res.json())
-        .then(comments => {
-          const commentHtml = comments.map(c => `<strong>${c.email}:</strong> ${c.body}`).slice(0, 3).join("<br>");
-          tr.setAttribute("title", commentHtml);
-          new bootstrap.Tooltip(tr); // re-init tooltip
-        });
+      tr.innerHTML = `
+        <td>${post.userId}</td>
+        <td>${post.title}</td>
+        <td>${post.body}</td>
+        <td class="comment-icon" title="View comments">🗨️</td>
+      `;
 
-      tr.innerHTML = `<td>${post.userId}</td><td>${post.title}</td><td>${post.body}</td>`;
+      tr.querySelector(".comment-icon").addEventListener("click", (e) => {
+        e.stopPropagation();
+        fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
+          .then(res => res.json())
+          .then(comments => {
+            commentBody.innerHTML = comments.map(c => `<p><strong>${c.email}:</strong> ${c.body}</p>`).join("");
+            commentPanel.style.display = "flex";
+          });
+      });
+
+      tr.addEventListener("mouseenter", () => {
+        if (!commentPanel.contains(document.activeElement)) {
+          commentPanel.style.display = "none";
+        }
+      });
+
       tableBody.appendChild(tr);
     });
   }
 
   searchInput.addEventListener("input", () => {
     const keyword = searchInput.value.toLowerCase();
-    const filtered = posts.filter(p => 
-      p.title.toLowerCase().includes(keyword) || 
-      p.body.toLowerCase().includes(keyword));
-    render(filtered);
+    const filtered = allPosts.filter(p =>
+      p.title.toLowerCase().includes(keyword) ||
+      p.body.toLowerCase().includes(keyword)
+    );
+    tableBody.innerHTML = "";
+    render(filtered.slice(0, currentIndex));
   });
 
-  render(posts);
+  loadMoreBtn.addEventListener("click", () => {
+    const nextPosts = allPosts.slice(currentIndex, currentIndex + 10);
+    render(nextPosts);
+    currentIndex += 10;
+    if (currentIndex >= allPosts.length) {
+      loadMoreBtn.style.display = "none";
+    }
+  });
+
+  document.getElementById("close-comments").addEventListener("click", () => {
+    commentPanel.style.display = "none";
+  });
+
+  render(postsSubset);
 }
 
 function renderReports(posts) {
