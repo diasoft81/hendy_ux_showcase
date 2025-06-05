@@ -18,6 +18,19 @@ function renderPosts(posts) {
     filteredPosts.forEach(post => {
       const tr = document.createElement("tr");
       if (post.body.includes("rerum")) tr.classList.add("rerum-highlight");
+      tr.setAttribute("data-bs-toggle", "tooltip");
+      tr.setAttribute("data-bs-html", "true");
+      tr.setAttribute("data-bs-placement", "top");
+      tr.setAttribute("title", "Loading comments...");
+
+      fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
+        .then(res => res.json())
+        .then(comments => {
+          const commentHtml = comments.map(c => `<strong>${c.email}:</strong> ${c.body}`).slice(0, 3).join("<br>");
+          tr.setAttribute("title", commentHtml);
+          new bootstrap.Tooltip(tr); // re-init tooltip
+        });
+
       tr.innerHTML = `<td>${post.userId}</td><td>${post.title}</td><td>${post.body}</td>`;
       tableBody.appendChild(tr);
     });
