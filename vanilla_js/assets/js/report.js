@@ -1,0 +1,1 @@
+// JS logic for report.html will be implemented here

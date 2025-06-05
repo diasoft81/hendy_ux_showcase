@@ -1,0 +1,1 @@
+// JS logic for index.html will be implemented here
