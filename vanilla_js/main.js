@@ -2,13 +2,20 @@ const isPostsPage = location.pathname.includes("posts.html");
 const isReportsPage = location.pathname.includes("reports.html");
 const API_URL = "https://jsonplaceholder.typicode.com/posts";
 let allPosts = [];
+let filteredPosts = [];
+let currentIndex = 0;
 
 fetch(API_URL)
   .then(res => res.json())
   .then(data => {
     allPosts = data;
-    if (isPostsPage) renderPosts(allPosts.slice(0, 10));
-    else if (isReportsPage) renderReports(allPosts);
+    filteredPosts = [...allPosts];
+    if (isPostsPage) {
+      renderPosts(filteredPosts.slice(0, 10));
+      currentIndex = 10;
+    } else if (isReportsPage) {
+      renderReports(allPosts);
+    }
 });
 
 function renderPosts(postsSubset) {
@@ -17,12 +24,15 @@ function renderPosts(postsSubset) {
   const loadMoreBtn = document.getElementById("load-more");
   const commentPanel = document.getElementById("comment-panel");
   const commentBody = commentPanel.querySelector(".body");
-  let currentIndex = postsSubset.length;
+  const highlightToggle = document.getElementById("toggle-highlight");
 
   function render(posts) {
+    tableBody.innerHTML = "";
     posts.forEach(post => {
       const tr = document.createElement("tr");
-      if (post.body.includes("rerum")) tr.classList.add("rerum-highlight");
+      if (highlightToggle.checked && post.body.includes("rerum")) {
+        tr.classList.add("rerum-highlight");
+      }
 
       tr.innerHTML = `
         <td>${post.userId}</td>
@@ -51,27 +61,28 @@ function renderPosts(postsSubset) {
     });
   }
 
-  searchInput.addEventListener("input", () => {
+  function filterAndRender() {
     const keyword = searchInput.value.toLowerCase();
-    const filtered = allPosts.filter(p =>
+    filteredPosts = allPosts.filter(p =>
       p.title.toLowerCase().includes(keyword) ||
       p.body.toLowerCase().includes(keyword)
     );
-    tableBody.innerHTML = "";
-    render(filtered.slice(0, currentIndex));
+    currentIndex = 10;
+    render(filteredPosts.slice(0, currentIndex));
+    loadMoreBtn.style.display = currentIndex < filteredPosts.length ? "block" : "none";
+  }
+
+  searchInput.addEventListener("input", filterAndRender);
+  highlightToggle.addEventListener("change", () => {
+    render(filteredPosts.slice(0, currentIndex));
   });
 
   loadMoreBtn.addEventListener("click", () => {
-    const nextPosts = allPosts.slice(currentIndex, currentIndex + 10);
-    render(nextPosts);
     currentIndex += 10;
-    if (currentIndex >= allPosts.length) {
+    render(filteredPosts.slice(0, currentIndex));
+    if (currentIndex >= filteredPosts.length) {
       loadMoreBtn.style.display = "none";
     }
-  });
-
-  document.getElementById("close-comments").addEventListener("click", () => {
-    commentPanel.style.display = "none";
   });
 
   render(postsSubset);

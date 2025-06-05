@@ -12,7 +12,13 @@
     <div class="card shadow-sm">
       <div class="card-body">
         <h2 class="card-title mb-4 text-primary">📄 Posts Viewer</h2>
-        <input type="text" id="search" class="form-control mb-3" placeholder="🔍 Search posts by title or body...">
+        <div class="d-flex justify-content-between mb-3">
+          <input type="text" id="search" class="form-control me-2" placeholder="🔍 Search posts by title or body...">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="toggle-highlight" checked>
+            <label class="form-check-label" for="toggle-highlight">Highlight "rerum"</label>
+          </div>
+        </div>
         <div class="table-responsive">
           <table class="table table-bordered table-hover align-middle">
             <thead class="table-header-custom">
