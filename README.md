@@ -1,7 +1,7 @@
 # Hendy UX Showcase
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
-![Tech: Multi-Stack](https://img.shields.io/badge/Tech-Vanilla%20JS%20%7C%20React%20%7C%20Blazor-blueviolet.svg)
+![Tech: Multi-Stack](https://img.shields.io/badge/Tech-Vanilla%20JS%20%7C%20React%20%7C%20Blazor%20%7C%20Angular%20%7C%20PHP%20%7C%20ASPNET-blueviolet.svg)
 ![Focus: UX](https://img.shields.io/badge/Focus-User%20Experience-orange.svg)
 ![Owner: diasoft81](https://img.shields.io/badge/GitHub-diasoft81-lightgrey.svg)
 
@@ -15,7 +15,10 @@ A personal frontend engineering showcase featuring multiple implementations (Van
 /hendy_ux_showcase
 ├── vanilla_js/     # Pure HTML/CSS/JS version (no frameworks)
 ├── react_demo/     # Future implementation using React
-└── blazor_demo/    # Future implementation using Blazor WebAssembly
+├── blazor_demo/    # Future implementation using Blazor
+├── angular_demo/   # Future implementation using Angular
+├── php_demo/       # Future implementation using PHP
+└── aspnet_demo/    # Future implementation using ASP.NET
 ```
 
 Each folder demonstrates the same frontend logic and interface goal, built with different technologies for cross-stack comparison and skill showcasing.
