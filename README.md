@@ -91,7 +91,7 @@ Located in `/vanilla_js/`, includes:
 
 #### 🖼️ Screenshots
 
-##### 🔍 Index Page
+##### 🏠 Index Page
 ![Index Screenshot](docs/images/index.png)
 
 ##### 🔍 Posts Page
