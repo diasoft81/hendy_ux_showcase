@@ -1,0 +1,72 @@
+<?php 
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Posts</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-light">
+
+  
+<!-- Top Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">🔧 JavaScript Development Showcase</span>
+  </div>
+</nav>
+
+<!-- Status Bar -->
+<div class="status-bar text-end px-3 py-2 bg-light border-bottom">
+  Status: <span class="text-success">Connected</span> | API: jsonplaceholder.typicode.com
+</div>
+
+
+  <div class="container py-4">
+    
+<div class="mb-3">
+  <a href="../index.html" class="btn btn-secondary">← Back to Home</a>
+</div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h2 class="card-title mb-4 text-primary">📄 Posts Viewer</h2>
+        <div class="d-flex justify-content-between mb-3">
+          <input type="text" id="search" class="form-control me-2" placeholder="🔍 Search posts by title or body...">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="toggle-highlight" checked>
+            <label class="form-check-label" for="toggle-highlight">Highlight "rerum"</label>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover align-middle">
+            <thead class="table-header-custom">
+              <tr>
+                <th>User ID</th>
+                <th>Title</th>
+                <th>Body</th>
+                <th>💬</th>
+              </tr>
+            </thead>
+            <tbody id="posts-table"></tbody>
+          </table>
+        </div>
+        <div class="d-grid mt-3">
+          <button id="load-more" class="btn btn-primary">Load More</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="comment-panel">
+    <div class="header">
+      💬 Comments
+      <button id="close-comments">&times;</button>
+    </div>
+    <div class="body"></div>
+  </div>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
